@@ -10,16 +10,6 @@ CREATE TABLE IF NOT EXISTS Personnel (
     salaire DECIMAL(10,2)
 );
 
--- Table Service
-CREATE TABLE IF NOT EXISTS Service (
-    ID_com INT AUTO_INCREMENT,
-    ID_table INT,
-    ID_plat INT,
-    PRIMARY KEY (ID_com, ID_table, ID_plat),
-    FOREIGN KEY (ID_table) REFERENCES Table(ID),
-    FOREIGN KEY (ID_com) REFERENCES Commande(ID),
-    FOREIGN KEY (ID_plat) REFERENCES Plat(ID)
-);
 -- Table Commande
 CREATE TABLE IF NOT EXISTS Commande (
     ID INT PRIMARY KEY AUTO_INCREMENT,
@@ -35,10 +25,21 @@ CREATE TABLE IF NOT EXISTS Plat (
     categorie VARCHAR(50)
 );
 
--- Table Table
-CREATE TABLE IF NOT EXISTS Table (
+-- Table Restaurant_Table (renamed from 'Table')
+CREATE TABLE IF NOT EXISTS r_Table (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     statut ENUM('occupée', 'libre', 'débarrassée', 'réservée') NOT NULL
+);
+
+-- Table Service
+CREATE TABLE IF NOT EXISTS Services (
+    ID_com INT,
+    ID_table INT,
+    ID_plat INT,
+    PRIMARY KEY (ID_com, ID_table, ID_plat),
+    FOREIGN KEY (ID_table) REFERENCES r_Table(ID),
+    FOREIGN KEY (ID_com) REFERENCES Commande(ID),
+    FOREIGN KEY (ID_plat) REFERENCES Plat(ID)
 );
 
 -- Table Attribution_table
@@ -47,9 +48,10 @@ CREATE TABLE IF NOT EXISTS Attribution_table (
     ID_personnel INT,
     date DATETIME,
     PRIMARY KEY (ID_table, ID_personnel),
-    FOREIGN KEY (ID_table) REFERENCES Table(ID),
+    FOREIGN KEY (ID_table) REFERENCES r_Table(ID),
     FOREIGN KEY (ID_personnel) REFERENCES Personnel(ID)
 );
+
 
 -- Table Produits
 CREATE TABLE IF NOT EXISTS Produits (
@@ -64,5 +66,5 @@ CREATE TABLE IF NOT EXISTS Reservation (
     ID_table INT,
     nom_client VARCHAR(100),
     date_horraire DATETIME,
-    FOREIGN KEY (ID_table) REFERENCES Table(ID)
+    FOREIGN KEY (ID_table) REFERENCES r_Table(ID)
 );
