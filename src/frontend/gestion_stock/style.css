@@ -13,7 +13,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
     padding: 2rem;
-    max-width: 400px;
+    max-width: 600px;
     width: 100%;
     box-sizing: border-box;
     text-align: center;
@@ -22,6 +22,29 @@ body {
 }
 
 .auth-container h1 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #212529;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.stock-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    padding: 2rem;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #dee2e6;
+    margin-top: 1.5rem;
+}
+
+.stock-container h2 {
     font-size: 1.8rem;
     margin-bottom: 1.5rem;
     color: #212529;
@@ -30,33 +53,46 @@ body {
     font-weight: 600;
 }
 
-.auth-container label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    color: #495057;
-    text-align: left;
+.stock-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1.5rem;
 }
 
-.auth-container input {
-    width: 100%;
+.stock-container table th, .stock-container table td {
     padding: 0.75rem;
-    margin-bottom: 1.5rem;
-    margin-right: 8px;
+    text-align: left;
     border: 1px solid #dee2e6;
-    border-radius: 8px;
+}
+
+.stock-container table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+}
+
+.stock-container table td {
+    color: #212529;
+}
+
+.stock-container input[type="text"], .stock-container input[type="number"] {
+    width: calc(100% - 16px);
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
     font-size: 1rem;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.auth-container input:focus {
+.stock-container input[type="text"]:focus, .stock-container input[type="number"]:focus {
     border-color: #007bff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
     outline: none;
 }
 
-.auth-container button {
-    width: 100%;
+.stock-container button {
+    width: calc(50% - 10px);
     padding: 0.75rem;
     font-size: 1rem;
     font-weight: 600;
@@ -66,14 +102,16 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    margin-right: 10px;
+    display: inline-block;
 }
 
-.auth-container button:hover {
+.stock-container button:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
 }
 
-.auth-container button:active {
+.stock-container button:active {
     transform: translateY(0);
     box-shadow: none;
 }
