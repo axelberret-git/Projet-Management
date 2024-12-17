@@ -5,6 +5,8 @@ USE restaurant;
 CREATE TABLE IF NOT EXISTS Personnel (
     ID INT AUTO_INCREMENT PRIMARY KEY,
     role VARCHAR(50),
+    username VARCHAR(100),
+    pwd VARCHAR(100),
     nom VARCHAR(100),
     prenom VARCHAR(100),
     salaire DECIMAL(10,2)

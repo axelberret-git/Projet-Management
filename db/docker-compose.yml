@@ -1,12 +1,13 @@
 version: '3.8'
 
 services:
+
   db:
     image: mariadb:latest
     container_name: restaurant_mariadb
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: restaurant_db
+      MYSQL_DATABASE: restaurant
       MYSQL_USER: restaurant_user
       MYSQL_PASSWORD: userpassword
     volumes:
@@ -28,6 +29,17 @@ services:
       - "8080:80"
     depends_on:
       - db
+    networks:
+      - restaurant_network
+
+  php:
+    image: php:latest
+    container_name: restaurant_php
+    command: php -S 0.0.0.0:8085 -t /var/www/html
+    volumes:
+      - ../src:/var/www/html  
+    ports:
+      - "8085:8085"
     networks:
       - restaurant_network
 
