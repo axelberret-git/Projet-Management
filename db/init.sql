@@ -59,7 +59,8 @@ CREATE TABLE IF NOT EXISTS Attribution_table (
 CREATE TABLE IF NOT EXISTS Produits (
     ID INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(100),
-    quantite INT
+    quantite INT,
+    categorie VARCHAR(50)
 );
 
 -- Table Reservation
