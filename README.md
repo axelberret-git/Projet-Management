@@ -1,5 +1,10 @@
 # Projet-Management
 
+Lien du Trello : 
+
+https://trello.com/b/N9HUYc3V/management
+
+
 ### **Étape 1 : Installer PHPUnit**
 Si PHPUnit n'est pas encore installé, utilisez **Composer** pour l'ajouter à votre projet :
 
