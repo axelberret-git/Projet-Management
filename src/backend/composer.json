@@ -1,0 +1,13 @@
+{
+    "name": "projet/management",
+    "description": "A project for managing stocks",
+    "require": {
+        "monolog/monolog": "^3.0",
+        "vlucas/phpdotenv": "^5.5" 
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

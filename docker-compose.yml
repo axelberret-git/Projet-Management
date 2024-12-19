@@ -11,7 +11,7 @@ services:
       MYSQL_USER: restaurant_user
       MYSQL_PASSWORD: userpassword
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - mariadb_data:/var/lib/mysql
     ports:
       - "3306:3306"
@@ -35,9 +35,12 @@ services:
   php:
     image: php:latest
     container_name: restaurant_php
+    build:
+      context: ./php
+      dockerfile: Dockerfile
     command: php -S 0.0.0.0:8085 -t /var/www/html
     volumes:
-      - ../src:/var/www/html  
+      - ./src:/var/www/html  
     ports:
       - "8085:8085"
     networks:

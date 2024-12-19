@@ -10,14 +10,15 @@ class GestionStock {
     }
 
     // Ajouter un produit au stock
-    public function ajouter_produit($nom, $quantite) {
+    public function ajouter_produit($nom, $quantite, $categorie) {
         try {
-            $query = "INSERT INTO Produits (nom, quantite) VALUES (:nom, :quantite)";
+            $query = "INSERT INTO Produits (nom, quantite, categorie) VALUES (:nom, :quantite, :categorie)";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':nom', $nom);
             $stmt->bindParam(':quantite', $quantite);
+            $stmt->bindParam(':categorie', $categorie);
             $stmt->execute();
-            echo "Produit '$nom' ajouté avec succès.<br>";
+            echo "Produit '$nom' ajouté avec succès en quantité $quantite et de catégorie $categorie.<br>";
         } catch (PDOException $e) {
             echo "Erreur lors de l'ajout du produit : " . $e->getMessage() . "<br>";
         }
@@ -31,7 +32,7 @@ class GestionStock {
             $produits = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($produits as $produit) {
-                echo "ID: " . $produit['ID'] . ", Nom: " . $produit['nom'] . ", Quantité: " . $produit['quantite'] . "<br>";
+                echo "ID: " . $produit['ID'] . ", Nom: " . $produit['nom'] . ", Quantité: " . $produit['quantite'] . ", Catégorie: " . $produit['categorie'] . "<br>";
             }
             return $produits;
         } catch (PDOException $e) {
