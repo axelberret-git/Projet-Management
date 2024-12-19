@@ -12,44 +12,45 @@ class StockManagerTest extends TestCase {
     }
 
     public function testAddProduct() {
-        $result = StockManager::addProduct('Tomates', 50); ## voir le nom de la fonction addProduct à changer selon ce qui sera définit et aussi les argument de la fonction
+        $result = StockManager::addProduct('Tomatestest', 50); ## voir le nom de la fonction addProduct à changer selon ce qui sera définit et aussi les argument de la fonction
         $this->assertTrue($result, "L'ajout d'un produit devrait retourner true");
 
-        $stmt = $pdo->query("SELECT * FROM Produits");
+        $stmt = $pdo->query("SELECT * FROM Produits WHERE nom = 'Tomatestest");
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $this->assertCount(1, $products, "Il devrait y avoir 1 produit dans la base");
-        $this->assertEquals('Tomates', $products[0]['nom']);
+        $this->assertCount(1, $products, "Il devrait y avoir 1 produit Tomatestest dans la base");
+        $this->assertEquals('Tomatestest', $products[0]['nom']);
         $this->assertEquals(50, $products[0]['quantite']);
     }
 
     public function testUpdateProductQuantity() {
-        StockManager::addProduct('Tomates', 50);
-        $result = StockManager::updateProductQuantity('Tomates', 30); ## encore une fois voir pour le nom de la fonction et les arguments
+        StockManager::addProduct('Tomatestest', 50);
+        $result = StockManager::updateProductQuantity('Tomatestest', 30); ## encore une fois voir pour le nom de la fonction et les arguments
         $this->assertTrue($result, "La mise à jour devrait retourner true");
 
         $products = StockManager::getAllProducts();
         $this->assertEquals(30, $products[0]['quantite'], "La quantité de Tomates devrait être mise à jour à 30");
     }
 
-    public function testDeleteProduct() {
-        StockManager::addProduct('Tomates', 50);
-        $result = StockManager::deleteProduct('Tomates'); ## nom de fonction à changer si probleme
-        $this->assertTrue($result, "La suppression d'un produit devrait retourner true");
+    public function testDeleteProduct()
+    {
+        $result = StockManager::deleteProduct('Tomatestest');
+        $this->assertTrue($result, "La suppression d'un produit existant devrait retourner true");
 
-        $products = StockManager::getAllProducts();
-        $this->assertCount(0, $products, "Il ne devrait plus y avoir de produits dans la base");
+        $stmt = $this->pdo->query("SELECT * FROM Produits WHERE nom = 'Tomatestest'");
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->assertCount(0, $products, "Le produit 'Tomatestest' ne devrait plus exister dans la base après suppression.");
     }
 
     public function testGetLowStockProducts() {
-        StockManager::addProduct('Tomates', 10);
-        StockManager::addProduct('Farine', 50);
-        StockManager::addProduct('Lait', 5);
+        StockManager::addProduct('Tomatestest', 10);
+        StockManager::addProduct('Farinetest', 50);
+        StockManager::addProduct('Laittest', 5);
 
         $lowStock = StockManager::getLowStockProducts(20); ## nom de fonctionner à chager si probleme
         $this->assertCount(2, $lowStock, "Il devrait y avoir 2 produits avec un stock inférieur à 20");
 
-        $this->assertEquals('Tomates', $lowStock[0]['nom']);
-        $this->assertEquals('Lait', $lowStock[1]['nom']);
+        $this->assertEquals('Tomatestest', $lowStock[0]['nom']);
+        $this->assertEquals('Laittest', $lowStock[1]['nom']);
     }
 
 }
